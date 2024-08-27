@@ -87,21 +87,33 @@ Signals can be used to control processes, handle unexpected events, and perform 
 You can handle signals in your application using signal handlers. Here is a simple example in C:
 
 ```c
-#include <signal.h>
-#include <stdio.h>
-#include <stdlib.h>
+#include <signal.h>  // Include the signal library for signal handling
+#include <stdio.h>   // Include the standard I/O library for input/output functions
+#include <stdlib.h>  // Include the standard library for general utilities like exit()
 
+// Signal handler function for SIGINT
 void handle_sigint(int sig) {
+    // Print a message when SIGINT is caught, displaying the signal number
     printf("Caught signal %d\n", sig);
+    
+    // Exit the program with status 1, indicating an abnormal termination
     exit(1);
 }
 
 int main() {
+    // Register the handle_sigint function as the signal handler for SIGINT
     signal(SIGINT, handle_sigint);
+
+    // Infinite loop to keep the program running until interrupted
     while (1) {
+        // Print a message indicating that the program is running
         printf("Running...\n");
+        
+        // Sleep for 1 second to simulate work being done
         sleep(1);
     }
+
+    // Return 0 to indicate successful program termination (though this line will never be reached)
     return 0;
 }
 ```
