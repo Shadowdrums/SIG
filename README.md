@@ -2,6 +2,14 @@
 
 This document provides an overview of the signals (SIGs) available in Unix-like operating systems. Signals are used for inter-process communication, allowing processes to be notified of various events.
 
+## Summary of Signals (SIGs)
+
+**Signals (SIGs)** in Unix-like operating systems are a form of inter-process communication that allows the operating system or another process to notify a running process of certain events. These events can include interrupts from the keyboard, illegal operations, or requests to terminate the process. Each signal has a specific purpose and is identified by a name (e.g., `SIGINT`) and a corresponding number.
+
+Signals can be used to control processes, handle unexpected events, and perform cleanup tasks. Some signals can be caught and handled by the process using signal handlers, while others, like `SIGKILL`, cannot be caught or ignored and will immediately terminate the process.
+
+## List of Common Signals
+
 ## List of Common Signals
 
 ### 1. SIGHUP (1)
@@ -99,3 +107,34 @@ int main() {
     return 0;
 }
 ```
+```bash
+#!/bin/bash
+
+# Function to handle SIGINT (Ctrl+C)
+handle_sigint() {
+    echo "Caught SIGINT (Ctrl+C)! Cleaning up..."
+    # Perform any cleanup tasks here
+    exit 0
+}
+
+# Trap SIGINT and call handle_sigint when it's received
+trap 'handle_sigint' SIGINT
+
+# Main loop
+echo "Running... Press Ctrl+C to stop."
+while true; do
+    # Simulate some work
+    sleep 1
+done
+```
+## How the Script Works:
+### trap Command: The trap command tells the shell to execute the handle_sigint function when a SIGINT signal is received.
+handle_sigint Function: This function handles the SIGINT signal. When Ctrl+C is pressed, this function is executed, allowing the script to perform any cleanup tasks before exiting.
+Infinite Loop: The script runs an infinite loop to simulate a long-running process. It continues to run until Ctrl+C is pressed.
+### Running the Script:
+- Save the script to a file, e.g., sigint_example.sh.
+- Make the script executable: chmod +x sigint_example.sh.
+- Run the script: ./sigint_example.sh.
+- Press Ctrl+C while the script is running to see the signal handling in action.
+# Conclusion
+Signals are a powerful tool for managing processes and handling inter-process communication in Unix-like operating systems. Understanding how to use and handle signals effectively can greatly enhance your ability to manage and control processes in your applications.
