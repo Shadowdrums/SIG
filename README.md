@@ -10,8 +10,6 @@ Signals can be used to control processes, handle unexpected events, and perform 
 
 ## List of Common Signals
 
-## List of Common Signals
-
 ### 1. SIGHUP (1)
 - **Description:** Hang up detected on controlling terminal or death of controlling process.
 - **Usage:** Often used to reload configuration files without stopping the process.
